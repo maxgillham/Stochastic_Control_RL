@@ -49,20 +49,20 @@ def value_iteration():
     value = np.zeros(2)
     # Temp value array for comparison
     value_ = np.zeros(2)
-    counter = 0
     while True:
-        counter += 1
         for s in states:
+            # Assign previous value array to current value
             value_[s] = value[s]
-            value[s] = min([P[s, a, s_]*(cost(s, a)+beta*value_[s_]) for s_, a in product(states, actions)])
+            # Compute minimum value for state and update value array
+            value[s] = min([sum(P[s, a, s_]*(cost(s, a)+beta*value_[s_]) for s_ in states) for a in actions])
+        # If the value is within convergence threshold
         if sum(abs(value-value_)) < .1:
+            # Exit loop
             break
-    print(value)
-    print('iterations', counter)
-    # Obtain policy for the optimal policy
+    # Obtain policy for the optimal aproximently optimal value array
     policy = np.zeros(2)
     for s in states:
-        policy[s] = np.argmin([P[s, a, s_]*(cost(s, a) + beta*value_[s_]) for s_, a in product(states, actions)])
+        policy[s] = np.argmin([sum(P[s, a, s_]*(cost(s, a) + beta*value_[s_]) for s_ in states) for a in actions])
 
     print('policy', policy)
     # print('Policy obtained:\nWhen in state x_t = 0, u_t =', policy[0], 'and when x_t = 1, u_t =', policy[1])
