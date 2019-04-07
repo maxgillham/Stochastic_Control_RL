@@ -13,13 +13,9 @@ def policy_iteration():
     print('Policy Iteration')
     # Policy initalization to be u(0)=0, u(1)=0
     policy = np.zeros(2, dtype=int)
-    policy[1] = 0
-    policy[0] = 1
     # Value initialization
     W = np.array([np.nan, np.nan])
-
     policy_changed = False
-
     # Iterat through policies while the policy is not changing
     while not policy_changed:
         # Get value of policy
