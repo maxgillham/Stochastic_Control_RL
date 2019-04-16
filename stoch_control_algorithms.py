@@ -1,13 +1,7 @@
 import numpy as np
 from itertools import product
 
-# Transition kernal
-P = np.array([[[.1, .9],[.5, .5]], [[.8, .2],[.2, .8]]])
-# States - indexed by zero becuase python
-states = np.array([0,1])
-# Actions - indexed by zero
-actions = np.array([0,1])
-beta = 0.8
+
 
 def policy_iteration():
     print('Policy Iteration')
@@ -108,7 +102,6 @@ def get_policy_value(policy):
     W = np.matmul(np.linalg.inv(I-beta*P_),C)
     return W
 
-
 def cost(x, u):
     c = 0
     if x and u == 1:
@@ -117,6 +110,13 @@ def cost(x, u):
     return c
 
 if __name__ == "__main__":
+    # Transition kernal
+    P = np.array([[[.1, .9],[.5, .5]], [[.8, .2],[.2, .8]]])
+    # States - indexed by zero becuase python
+    states = np.array([0,1])
+    # Actions - indexed by zero
+    actions = np.array([0,1])
+    beta = 0.8
     policy = policy_iteration()
     policy = value_iteration()
     policy = q_learning()
